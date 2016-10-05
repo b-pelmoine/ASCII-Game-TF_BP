@@ -48,7 +48,7 @@ void AsciiGame::start()
 	while (m_isRunning){
 		handleInputs();
 		update(m_timer.getElapsedMs());
-		render(m_timer.getElapsedMs());
+		render();
 	}
 }
 
@@ -56,19 +56,19 @@ void AsciiGame::start()
 /*
 * clear the portion of the game window that aren't up-to-date and draw on top the new context
 */
-void AsciiGame::render(unsigned long timeElapsed)
+void AsciiGame::render()
 {
 	clear();
 	ReadConsoleOutput(m_hOutput, (CHAR_INFO *)m_buffer, m_dwBufferSize,
 		m_dwBufferCoord, &m_rcRegion);
 
-	for (size_t i = 0; i < SCREEN_WIDTH; i++)
+	for (size_t i = 0; i < MOBS_COUNT; i++)
 	{
-		for (size_t j = 0; j < SCREEN_HEIGHT; j++)
-		{
-			m_buffer[j][i].Char.AsciiChar = '.';
-			m_buffer[j][i].Attributes = 0x0E;
-		}
+		m_mobs[i]->display(m_buffer);
+	}
+	for (size_t i = 0; i < BULLETS_COUNT; i++)
+	{
+		m_mobs[i]->display(m_buffer);
 	}
 
 	WriteConsoleOutput(m_hOutput, (CHAR_INFO *)m_buffer, m_dwBufferSize, m_dwBufferCoord, &m_rcRegion);
@@ -80,7 +80,14 @@ void AsciiGame::render(unsigned long timeElapsed)
 */
 void AsciiGame::clear()
 {
-
+	for (size_t i = 0; i < SCREEN_WIDTH; i++)
+	{
+		for (size_t j = 0; j < SCREEN_HEIGHT; j++)
+		{
+			m_buffer[j][i].Char.AsciiChar = ' ';
+			m_buffer[j][i].Attributes = 0x00;
+		}
+	}
 }
 
 //! handle inputs
@@ -89,13 +96,16 @@ void AsciiGame::clear()
 */
 void AsciiGame::handleInputs()
 {
-
+	m_leftState = (GetKeyState(INPUT_LEFT) & 0x8000) ? true : false;
+	m_topState = (GetKeyState(INPUT_TOP) & 0x8000) ? true : false;
+	m_rightState = (GetKeyState(INPUT_RIGHT) & 0x8000) ? true : false;
+	m_downState = (GetKeyState(INPUT_DOWN) & 0x8000) ? true : false;
 }
 
 //! update game objects
 /*
 * run through all game object and update there components (AI, position)
 */
-void AsciiGame::update(unsigned long timeElapsed){
+void AsciiGame::update(float timeElapsed){
 	
 }
