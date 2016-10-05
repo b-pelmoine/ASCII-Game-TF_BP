@@ -11,7 +11,7 @@ public:
 
 
 
-private:
+protected:
 	int m_life;
 	float m_speed;
 	float m_posX;
