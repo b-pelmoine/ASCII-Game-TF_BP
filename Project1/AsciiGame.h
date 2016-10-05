@@ -28,8 +28,19 @@ private:
 	/* Const */
 	const static short SCREEN_WIDTH = 60;
 	const static short SCREEN_HEIGHT = 30;
+
 	const static short MOBS_COUNT = 50;
 	const static short BULLETS_COUNT = 50;
+
+	/* inputs */
+	const int INPUT_LEFT	 = 0x25;
+	const int INPUT_TOP		 = 0x26;
+	const int INPUT_RIGHT	 = 0x27;
+	const int INPUT_DOWN	 = 0x28;
+	bool m_leftState;
+	bool m_topState;
+	bool m_rightState;
+	bool m_downState;
 
 	/* Game engine */
 	bool	m_isRunning;

@@ -89,7 +89,10 @@ void AsciiGame::clear()
 */
 void AsciiGame::handleInputs()
 {
-
+	m_leftState = (GetKeyState(INPUT_LEFT) & 0x8000) ? true : false;
+	m_topState = (GetKeyState(INPUT_TOP) & 0x8000) ? true : false;
+	m_rightState = (GetKeyState(INPUT_RIGHT) & 0x8000) ? true : false;
+	m_downState = (GetKeyState(INPUT_DOWN) & 0x8000) ? true : false;
 }
 
 //! update game objects
