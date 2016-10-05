@@ -6,15 +6,12 @@
 #include "NYTimer.h"
 #include "GameObject.h"
 
-const short SCREEN_WIDTH = 60;
-const short SCREEN_HEIGHT = 30;
-
 /*
 ===============================================================================
 > AsciiGame
 Game engine class in charge of the whole game logic
 ===============================================================================
-*/
+*/
 
 class AsciiGame
 {
@@ -27,6 +24,12 @@ private:
 	void render( unsigned long );
 	void handleInputs( void );
 	void update( unsigned long );
+
+	/* Const */
+	const static short SCREEN_WIDTH = 60;
+	const static short SCREEN_HEIGHT = 30;
+	const static short MOBS_COUNT = 50;
+	const static short BULLETS_COUNT = 50;
 
 	/* Game engine */
 	bool	m_isRunning;
@@ -41,6 +44,8 @@ private:
 	CHAR_INFO m_buffer[SCREEN_HEIGHT][SCREEN_WIDTH];
 
 	/* GameObjects */
-	std::vector<GameObject> m_gameObjects;
+	GameObject** m_mobs; /* pool containing mobs */
+	GameObject** m_bullets; /* pool containing particles */
+	GameObject* m_player;
 };
 

@@ -1,11 +1,13 @@
-#include "AsciiGame.h"
+﻿#include "AsciiGame.h"
 
 //! Ctor
 /*
  * init the game window properties
+ * init gameObject pools
  */
 AsciiGame::AsciiGame() : m_isRunning(false)
 {
+	/* game window */
 	m_hOutput = (HANDLE)GetStdHandle(STD_OUTPUT_HANDLE);
 
 	m_dwBufferSize = { SCREEN_WIDTH, SCREEN_HEIGHT };
@@ -13,11 +15,26 @@ AsciiGame::AsciiGame() : m_isRunning(false)
 	m_rcRegion = { 0, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1 };
 
 	SetConsoleWindowInfo(m_hOutput, true, p_rcRegion);
+
+	/* GameObject pools */
+	m_mobs = new GameObject* [MOBS_COUNT];
+	m_bullets = new GameObject* [BULLETS_COUNT];
+	//m_player = new 
 }
 
 //! Dtor
 AsciiGame::~AsciiGame()
 {
+	for (int i = 0; i < MOBS_COUNT; ++i)
+	{
+		delete[] m_mobs[i];
+	}
+	for (int i = 0; i < BULLETS_COUNT; ++i)
+	{
+		delete[] m_bullets[i];
+	}
+	delete p_rcRegion;
+	delete m_player;
 }
 
 //! start the game
@@ -61,7 +78,8 @@ void AsciiGame::render(unsigned long timeElapsed)
 /*
 * clear a portion of the game Window
 */
-void AsciiGame::clear(){
+void AsciiGame::clear()
+{
 
 }
 
