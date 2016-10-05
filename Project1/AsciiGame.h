@@ -1,7 +1,10 @@
 #pragma once
 
 #include <Windows.h>
+#include <vector>
+
 #include "NYTimer.h"
+#include "GameObject.h"
 
 const short SCREEN_WIDTH = 60;
 const short SCREEN_HEIGHT = 30;
@@ -36,5 +39,8 @@ private:
 	SMALL_RECT m_rcRegion;
 	const SMALL_RECT* p_rcRegion = &m_rcRegion;
 	CHAR_INFO m_buffer[SCREEN_HEIGHT][SCREEN_WIDTH];
+
+	/* GameObjects */
+	std::vector<GameObject> m_gameObjects;
 };
 
