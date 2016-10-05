@@ -1,10 +1,11 @@
 #include <Windows.h>
 #include <iostream>
 
+#include "AsciiGame.h"
+
 int main()
 {
-	const int SCREEN_WIDTH	= 60;
-	const int SCREEN_HEIGHT = 30;
+	
 
 	HANDLE hOutput = (HANDLE)GetStdHandle(STD_OUTPUT_HANDLE);
 
