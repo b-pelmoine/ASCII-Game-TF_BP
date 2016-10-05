@@ -6,19 +6,26 @@ GameObject::GameObject()
 {
 }
 
-GameObject::GameObject(float posX, float posY, float sizeX, float sizeY, char * ascii) : m_posX(posX), m_posY(posY), m_sizeX(sizeX), m_sizeY(sizeY), m_ascii(ascii)
+GameObject::GameObject(float posX, float posY, short sizeX, short sizeY, CHAR_INFO * ascii, float speed, int life) : m_posX(posX), m_posY(posY), m_sizeX(sizeX), m_sizeY(sizeY), m_speed(speed), m_life(life)
 {
+	m_ascii = new CHAR_INFO[sizeX*sizeY];
 }
 
 
 GameObject::~GameObject()
 {
+	delete [] m_ascii;
 }
 
 void GameObject::move(void)
 {
 }
 
-void GameObject::display(void)
+void GameObject::display(CHAR_INFO ** buffer)
 {
+	for (int x = 0; x < m_sizeX; ++x ) {
+		for (int y = 0; y < m_sizeY; ++y) {
+			buffer[x + (int)(m_posX)][y + (int)(m_posY)] = m_ascii[ x + y * m_sizeX];
+		}
+	}
 }
