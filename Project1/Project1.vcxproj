@@ -116,6 +116,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AsciiGame.h" />
+    <ClInclude Include="NYTimer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
