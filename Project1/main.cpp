@@ -1,6 +1,3 @@
-#include <Windows.h>
-#include <iostream>
-
 #include "AsciiGame.h"
 
 int main()
