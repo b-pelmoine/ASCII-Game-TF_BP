@@ -24,7 +24,7 @@ int main()
 	{
 		for (size_t j = 0; j < SCREEN_HEIGHT; j++)
 		{
-			buffer[j][i].Char.AsciiChar = '+';
+			buffer[j][i].Char.AsciiChar = '.';
 			buffer[j][i].Attributes = 0x0E;
 		}
 	}
