@@ -6,7 +6,7 @@ public:
 	GameObject();
 	GameObject(float posX, float posY, short sizeX, short sizeY, CHAR_INFO * ascii, float speed, int life);
 	~GameObject();
-	void move(void);
+	void move(float x, float y);
 	void display(CHAR_INFO ** buffer);
 
 

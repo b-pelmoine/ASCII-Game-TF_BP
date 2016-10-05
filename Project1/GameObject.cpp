@@ -17,8 +17,10 @@ GameObject::~GameObject()
 	delete [] m_ascii;
 }
 
-void GameObject::move(void)
+void GameObject::move(float x, float y)
 {
+	m_posX += x;
+	m_posY += y;
 }
 
 void GameObject::display(CHAR_INFO ** buffer)
