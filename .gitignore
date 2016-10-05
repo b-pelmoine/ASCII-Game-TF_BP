@@ -242,5 +242,5 @@ ModelManifest.xml
 .fake/
 
 # perso
-.vcxproj
-.filters
+*.vcxproj
+*.filters
