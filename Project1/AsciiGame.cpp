@@ -10,26 +10,32 @@ AsciiGame::AsciiGame() : m_isRunning(false)
 	/* game window */
 	m_hOutput = (HANDLE)GetStdHandle(STD_OUTPUT_HANDLE);
 
-	m_dwBufferSize = { SCREEN_WIDTH, SCREEN_HEIGHT };
+	m_dwBufferSize = { CONSTANT::SCREEN_WIDTH, CONSTANT::SCREEN_HEIGHT };
 	m_dwBufferCoord = { 0, 0 };
-	m_rcRegion = { 0, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1 };
+	m_rcRegion = { 0, 0, CONSTANT::SCREEN_WIDTH - 1, CONSTANT::SCREEN_HEIGHT - 1 };
 
 	SetConsoleWindowInfo(m_hOutput, true, p_rcRegion);
 
 	/* GameObject pools */
-	m_mobs = new GameObject* [MOBS_COUNT];
-	m_bullets = new GameObject* [BULLETS_COUNT];
+	for (int i = 0; i < CONSTANT::MOBS_COUNT; ++i)
+	{
+		m_mobs[i] = new GameObject;
+	}
+	for (int i = 0; i < CONSTANT::BULLETS_COUNT; ++i)
+	{
+		m_bullets[i] = new GameObject;
+	}
 	//m_player = new 
 }
 
 //! Dtor
 AsciiGame::~AsciiGame()
 {
-	for (int i = 0; i < MOBS_COUNT; ++i)
+	for (int i = 0; i < CONSTANT::MOBS_COUNT; ++i)
 	{
 		delete[] m_mobs[i];
 	}
-	for (int i = 0; i < BULLETS_COUNT; ++i)
+	for (int i = 0; i < CONSTANT::BULLETS_COUNT; ++i)
 	{
 		delete[] m_bullets[i];
 	}
@@ -47,7 +53,7 @@ void AsciiGame::start()
 	m_timer.start();
 	while (m_isRunning){
 		handleInputs();
-		update(m_timer.getElapsedMs());
+		update(m_timer.getElapsedSeconds());
 		render();
 	}
 }
@@ -62,11 +68,11 @@ void AsciiGame::render()
 	ReadConsoleOutput(m_hOutput, (CHAR_INFO *)m_buffer, m_dwBufferSize,
 		m_dwBufferCoord, &m_rcRegion);
 
-	for (size_t i = 0; i < MOBS_COUNT; i++)
+	for (size_t i = 0; i < CONSTANT::MOBS_COUNT; i++)
 	{
 		m_mobs[i]->display(m_buffer);
 	}
-	for (size_t i = 0; i < BULLETS_COUNT; i++)
+	for (size_t i = 0; i < CONSTANT::BULLETS_COUNT; i++)
 	{
 		m_mobs[i]->display(m_buffer);
 	}
@@ -80,9 +86,9 @@ void AsciiGame::render()
 */
 void AsciiGame::clear()
 {
-	for (size_t i = 0; i < SCREEN_WIDTH; i++)
+	for (size_t i = 0; i < CONSTANT::SCREEN_WIDTH; i++)
 	{
-		for (size_t j = 0; j < SCREEN_HEIGHT; j++)
+		for (size_t j = 0; j < CONSTANT::SCREEN_HEIGHT; j++)
 		{
 			m_buffer[j][i].Char.AsciiChar = ' ';
 			m_buffer[j][i].Attributes = 0x00;
@@ -96,10 +102,10 @@ void AsciiGame::clear()
 */
 void AsciiGame::handleInputs()
 {
-	m_leftState = (GetKeyState(INPUT_LEFT) & 0x8000) ? true : false;
-	m_topState = (GetKeyState(INPUT_TOP) & 0x8000) ? true : false;
-	m_rightState = (GetKeyState(INPUT_RIGHT) & 0x8000) ? true : false;
-	m_downState = (GetKeyState(INPUT_DOWN) & 0x8000) ? true : false;
+	m_leftIsPressed = (GetKeyState(INPUT_LEFT) & 0x8000) ? true : false;
+	m_topIsPressed = (GetKeyState(INPUT_TOP) & 0x8000) ? true : false;
+	m_rightIsPressed = (GetKeyState(INPUT_RIGHT) & 0x8000) ? true : false;
+	m_downIsPressed = (GetKeyState(INPUT_DOWN) & 0x8000) ? true : false;
 }
 
 //! update game objects

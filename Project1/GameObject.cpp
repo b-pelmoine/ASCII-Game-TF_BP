@@ -1,7 +1,5 @@
 #include "GameObject.h"
 
-
-
 GameObject::GameObject()
 {
 }
@@ -23,7 +21,7 @@ void GameObject::move(float x, float y)
 	m_posY += y;
 }
 
-void GameObject::display(CHAR_INFO ** buffer)
+void GameObject::display(CHAR_INFO buffer[CONSTANT::SCREEN_HEIGHT][CONSTANT::SCREEN_WIDTH])
 {
 	for (int x = 0; x < m_sizeX; ++x ) {
 		for (int y = 0; y < m_sizeY; ++y) {

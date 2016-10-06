@@ -1,5 +1,8 @@
 #pragma once
 #include <Windows.h>
+
+#include "GameVar.h"
+
 class GameObject
 {
 public:
@@ -7,9 +10,7 @@ public:
 	GameObject(float posX, float posY, short sizeX, short sizeY, CHAR_INFO * ascii, float speed, int life);
 	~GameObject();
 	void move(float x, float y);
-	void display(CHAR_INFO ** buffer);
-
-
+	void display(CHAR_INFO buffer[CONSTANT::SCREEN_HEIGHT][CONSTANT::SCREEN_WIDTH]);
 
 protected:
 	int m_life;

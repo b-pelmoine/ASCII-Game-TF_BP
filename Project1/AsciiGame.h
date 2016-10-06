@@ -1,8 +1,8 @@
 #pragma once
 
 #include <Windows.h>
-#include <vector>
 
+#include "GameVar.h"
 #include "NYTimer.h"
 #include "GameObject.h"
 
@@ -19,28 +19,22 @@ public:
 	AsciiGame();
 	~AsciiGame();
 	void start( void );
+
 private:
 	void clear( void );
 	void render( void );
 	void handleInputs( void );
 	void update( float );
 
-	/* Const */
-	const static short SCREEN_WIDTH		= 60;
-	const static short SCREEN_HEIGHT	= 30;
-
-	const static short MOBS_COUNT		= 50;
-	const static short BULLETS_COUNT	= 50;
-
 	/* inputs */
 	const int	INPUT_LEFT	 = 0x25;
 	const int	INPUT_TOP	 = 0x26;
 	const int	INPUT_RIGHT	 = 0x27;
 	const int	INPUT_DOWN	 = 0x28;
-	bool		m_leftState;
-	bool		m_topState;
-	bool		m_rightState;
-	bool		m_downState;
+	bool		m_leftIsPressed;
+	bool		m_topIsPressed;
+	bool		m_rightIsPressed;
+	bool		m_downIsPressed;
 
 	/* Game engine */
 	bool	m_isRunning;
@@ -52,11 +46,11 @@ private:
 	COORD				m_dwBufferCoord;
 	SMALL_RECT			m_rcRegion;
 	const SMALL_RECT*	p_rcRegion = &m_rcRegion;
-	CHAR_INFO			m_buffer[SCREEN_HEIGHT][SCREEN_WIDTH];
+	CHAR_INFO			m_buffer[CONSTANT::SCREEN_HEIGHT][CONSTANT::SCREEN_WIDTH];
 
 	/* GameObjects */
-	GameObject**	m_mobs; /* pool containing mobs */
-	GameObject**	m_bullets; /* pool containing particles */
+	GameObject*		m_mobs[CONSTANT::MOBS_COUNT]; /* pool containing mobs */
+	GameObject*		m_bullets[CONSTANT::BULLETS_COUNT]; /* pool containing particles */
 	GameObject*		m_player;
 };
 
