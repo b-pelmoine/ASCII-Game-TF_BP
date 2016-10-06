@@ -1,11 +1,14 @@
 #pragma once
 
 #include <Windows.h>
+#include <map>
+#include <string>
+#include <thread>
 
-#include "GameVar.h"
 #include "NYTimer.h"
 #include "GameObject.h"
-#include "Player.h"
+#include "SoundPlayer.h"
+
 /*
 ===============================================================================
 > AsciiGame
@@ -46,11 +49,15 @@ private:
 	COORD				m_dwBufferCoord;
 	SMALL_RECT			m_rcRegion;
 	const SMALL_RECT*	p_rcRegion = &m_rcRegion;
-	CHAR_INFO			m_buffer[CONSTANT::SCREEN_HEIGHT][CONSTANT::SCREEN_WIDTH];
+	CHAR_INFO			m_buffer[CST::SCREEN_HEIGHT][CST::SCREEN_WIDTH];
 
 	/* GameObjects */
-	GameObject*		m_mobs[CONSTANT::MOBS_COUNT]; /* pool containing mobs */
-	GameObject*		m_bullets[CONSTANT::BULLETS_COUNT]; /* pool containing particles */
+	GameObject*		m_mobs[CST::MOBS_COUNT];		/* pool containing mobs */
+	GameObject*		m_bullets[CST::BULLETS_COUNT];	/* pool containing particles */
 	GameObject*		m_player;
+
+	/* SoundHandler */
+	SoundPlayer						m_sndPlayer;
+	std::map<std::string, Sound*>	m_regSounds; /* registered sounds*/
 };
 
