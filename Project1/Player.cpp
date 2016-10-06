@@ -15,8 +15,8 @@ Player::Player()
 	ascii[7].Char.AsciiChar = '*';
 	ascii[8].Char.AsciiChar = '/';
 	m_color = 3;
-	m_posX = 12.0f;
-	m_posY = 27.0f;
+	m_posX = 27.0f;
+	m_posY = 12.0f;
 	m_sizeX = 3;
 	m_sizeY = 3;
 	m_ascii = ascii;

@@ -29,7 +29,7 @@ void GameObject::display(CHAR_INFO buffer[CONSTANT::SCREEN_HEIGHT][CONSTANT::SCR
 {
 	for (int x = 0; x < m_sizeX; ++x ) {
 		for (int y = 0; y < m_sizeY; ++y) {
-			buffer[x + (int)(m_posX)][y + (int)(m_posY)] = *(m_ascii + x + y * m_sizeX);
+			buffer[y + (int)(m_posY)][x + (int)(m_posX)] = *(m_ascii + x + y * m_sizeX);
 		}
 	}
 }
