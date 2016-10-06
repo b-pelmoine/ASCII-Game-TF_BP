@@ -5,7 +5,7 @@
 #include "GameVar.h"
 #include "NYTimer.h"
 #include "GameObject.h"
-
+#include "Player.h"
 /*
 ===============================================================================
 > AsciiGame

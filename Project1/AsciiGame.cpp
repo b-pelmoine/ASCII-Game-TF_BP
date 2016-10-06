@@ -25,7 +25,7 @@ AsciiGame::AsciiGame() : m_isRunning(false)
 	{
 		m_bullets[i] = new GameObject;
 	}
-	//m_player = new 
+	m_player = new Player;
 }
 
 //! Dtor
@@ -76,6 +76,7 @@ void AsciiGame::render()
 	{
 		m_mobs[i]->display(m_buffer);
 	}
+	m_player->display(m_buffer);
 
 	WriteConsoleOutput(m_hOutput, (CHAR_INFO *)m_buffer, m_dwBufferSize, m_dwBufferCoord, &m_rcRegion);
 }
