@@ -6,7 +6,7 @@ class Mob : public GameObject
 {
 	
 public:
-	enum mobBreed {
+	static enum mobBreed {
 		Tiny,
 		Middle,
 		Large

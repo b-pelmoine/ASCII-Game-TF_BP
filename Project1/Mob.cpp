@@ -4,10 +4,11 @@
 
 Mob::Mob(Mob::mobBreed breed, float posX, float posY)
 {
+	CHAR_INFO * ascii = new CHAR_INFO();
 	switch (breed)
 	{
 	case Mob::mobBreed::Tiny :
-		CHAR_INFO ascii[3];
+		
 		ascii[0].Char.AsciiChar = '<';
 		ascii[0].Attributes = 0x0004;
 		ascii[1].Char.AsciiChar = '^';
@@ -31,4 +32,9 @@ Mob::Mob(Mob::mobBreed breed, float posX, float posY)
 
 Mob::~Mob()
 {
+	for (int x = 0; x < m_sizeX; ++x) {
+		for (int y = 0; y < m_sizeY; ++y) {
+			delete (m_ascii + x + y * m_sizeX);
+		}
+	}
 }
