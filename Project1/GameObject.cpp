@@ -33,3 +33,10 @@ void GameObject::display(CHAR_INFO buffer[CONSTANT::SCREEN_HEIGHT][CONSTANT::SCR
 		}
 	}
 }
+
+void GameObject::coloring()
+{
+	for (int i = 0; i < m_sizeX*m_sizeY; ++i) {
+		m_ascii[i].Attributes = m_color;
+	}
+}

@@ -11,8 +11,10 @@ public:
 	~GameObject();
 	void move(float x, float y);
 	void display(CHAR_INFO buffer[CONSTANT::SCREEN_HEIGHT][CONSTANT::SCREEN_WIDTH]);
+	void coloring();
 
 protected:
+	int m_color;
 	int m_life;
 	float m_speed;
 	float m_posX;
