@@ -3,7 +3,7 @@
 #include "GameObject.h"
 
 
-enum mobBreed {
+enum MobBreed {
 	Tiny,
 	Middle,
 	Large
@@ -14,13 +14,13 @@ class Mob : public GameObject
 	
 public:
 
-	Mob(mobBreed breed, float posX, float posY);
+	Mob(MobBreed breed, float posX, float posY);
 	~Mob();
 
 
 
 private:
-	mobBreed m_breed;
+	MobBreed m_breed;
 
 };
 
