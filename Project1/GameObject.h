@@ -2,7 +2,12 @@
 #include <Windows.h>
 
 #include "GameVar.h"
-
+/*
+===============================================================================
+> GameObject
+Object on screen
+===============================================================================
+*/
 class GameObject
 {
 public:
@@ -14,13 +19,13 @@ public:
 	void coloring();
 
 protected:
-	int m_color;
-	int m_life;
-	float m_speed;
-	float m_posX;
-	float m_posY;
-	short m_sizeX;
-	short m_sizeY;
-	CHAR_INFO * m_ascii;
+	int			m_color;
+	int			m_life;
+	float		m_speed;
+	float		m_posX;
+	float		m_posY;
+	short		m_sizeX;
+	short		m_sizeY;
+	CHAR_INFO*	m_ascii;
 };
 
