@@ -24,43 +24,43 @@ Bullet::~Bullet()
 void Bullet::spriteAndPosition() {
 	switch (m_direction) {
 	case North:
-		m_posX = 11.0f;
-		m_posY = 28.0f;
+		m_posX = 28.0f;
+		m_posY = 11.0f;
 		m_ascii->Char.AsciiChar = '|';
 		break;
 	case NorthEast:
-		m_posX = 11.0f;
-		m_posY = 31.0f;
+		m_posX = 31.0f;
+		m_posY = 11.0f;
 		m_ascii->Char.AsciiChar = '/';
 		break;
 	case NorthWest:
-		m_posX = 11.0f;
-		m_posY = 25.0f;
+		m_posX = 25.0f;
+		m_posY = 11.0f;
 		m_ascii->Char.AsciiChar = '\\';
 		break;
 	case East:
-		m_posX = 13.0f;
-		m_posY = 25.0f;
+		m_posX = 31.0f;
+		m_posY = 13.0f;
 		m_ascii->Char.AsciiChar = '-';
 		break;
 	case West:
-		m_posX = 13.0f;
-		m_posY = 31.0f;
+		m_posX = 25.0f;
+		m_posY = 13.0f;
 		m_ascii->Char.AsciiChar = '-';
 		break;
 	case SouthEast:
-		m_posX = 15.0f;
-		m_posY = 31.0f;
+		m_posX = 31.0f;
+		m_posY = 15.0f;
 		m_ascii->Char.AsciiChar = '\\';
 		break;
 	case SouthWest:
-		m_posX = 15.0f;
-		m_posY = 25.0f;
+		m_posX = 25.0f;
+		m_posY = 15.0f;
 		m_ascii->Char.AsciiChar = '/';
 		break;
 	case South:
-		m_posX = 15.0f;
-		m_posY = 28.0f;
+		m_posX = 28.0f;
+		m_posY = 15.0f;
 		m_ascii->Char.AsciiChar = '|';
 		break;
 	}
