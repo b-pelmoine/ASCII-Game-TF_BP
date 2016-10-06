@@ -12,7 +12,11 @@ GameObject::GameObject(float posX, float posY, short sizeX, short sizeY, CHAR_IN
 
 GameObject::~GameObject()
 {
-	delete [] m_ascii;
+	for (int x = 0; x < m_sizeX; ++x) {
+		for (int y = 0; y < m_sizeY; ++y) {
+			delete (m_ascii + x + y * m_sizeX);
+		}
+	}
 }
 
 void GameObject::move(float x, float y)

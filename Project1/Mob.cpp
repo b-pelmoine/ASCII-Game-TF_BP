@@ -32,9 +32,5 @@ Mob::Mob(mobBreed breed, float posX, float posY)
 
 Mob::~Mob()
 {
-	for (int x = 0; x < m_sizeX; ++x) {
-		for (int y = 0; y < m_sizeY; ++y) {
-			delete (m_ascii + x + y * m_sizeX);
-		}
-	}
+
 }
