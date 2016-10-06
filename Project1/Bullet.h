@@ -18,6 +18,7 @@ public:
 	Bullet(Direction direction);
 	~Bullet();
 	void spriteAndPosition();
+	void move();
 
 private:
 	Direction	m_direction;

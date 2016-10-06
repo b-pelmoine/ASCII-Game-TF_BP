@@ -19,11 +19,13 @@ GameObject::~GameObject()
 	}
 }
 
+/*
 void GameObject::move(float x, float y)
 {
 	m_posX += x;
 	m_posY += y;
 }
+*/
 
 void GameObject::display(CHAR_INFO buffer[CONSTANT::SCREEN_HEIGHT][CONSTANT::SCREEN_WIDTH])
 {
@@ -39,4 +41,13 @@ void GameObject::coloring()
 	for (int i = 0; i < m_sizeX*m_sizeY; ++i) {
 		m_ascii[i].Attributes = m_color;
 	}
+}
+
+void GameObject::move()
+{
+}
+
+bool GameObject::testExit()
+{
+	return (m_posX >= 0 && m_posY >= 0 && m_posX < CONSTANT::SCREEN_WIDTH && m_posY < CONSTANT::SCREEN_HEIGHT);
 }

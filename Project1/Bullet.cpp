@@ -65,3 +65,38 @@ void Bullet::spriteAndPosition() {
 		break;
 	}
 }
+
+void Bullet::move()
+{
+	switch (m_direction) {
+	case North:
+		m_posY -= m_speed;
+		break;
+	case East:
+		m_posX += m_speed;
+		break;
+	case West:
+		m_posX -= m_speed;
+		break;
+	case South:
+		m_posY += m_speed;
+		break;
+	case NorthEast:
+		m_posX += m_speed;
+		m_posY -= m_speed;
+		break;
+	case NorthWest:
+		m_posX -= m_speed;
+		m_posY -= m_speed;
+		break;
+	case SouthEast:
+		m_posX += m_speed;
+		m_posY += m_speed;
+		break;
+	case SouthWest:
+		m_posX -= m_speed;
+		m_posY += m_speed;
+		break;
+	}
+}
+
