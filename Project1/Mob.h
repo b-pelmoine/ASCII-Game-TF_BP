@@ -2,15 +2,17 @@
 
 #include "GameObject.h"
 
+
+enum mobBreed {
+	Tiny,
+	Middle,
+	Large
+};
+
 class Mob : public GameObject
 {
 	
 public:
-	static enum mobBreed {
-		Tiny,
-		Middle,
-		Large
-	};
 
 	Mob(mobBreed breed, float posX, float posY);
 	~Mob();

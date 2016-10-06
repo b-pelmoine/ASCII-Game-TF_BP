@@ -2,12 +2,12 @@
 
 
 
-Mob::Mob(Mob::mobBreed breed, float posX, float posY)
+Mob::Mob(mobBreed breed, float posX, float posY)
 {
 	CHAR_INFO * ascii = new CHAR_INFO();
 	switch (breed)
 	{
-	case Mob::mobBreed::Tiny :
+	case mobBreed::Tiny :
 		
 		ascii[0].Char.AsciiChar = '<';
 		ascii[0].Attributes = 0x0004;
