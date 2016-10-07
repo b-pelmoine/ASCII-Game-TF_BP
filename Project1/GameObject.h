@@ -15,7 +15,7 @@ public:
 	GameObject(float posX, float posY, short sizeX, short sizeY, CHAR_INFO * ascii, float speed, int life);
 	~GameObject();
 	//void move(float x, float y);
-	void display(CHAR_INFO buffer[CONSTANT::SCREEN_HEIGHT][CONSTANT::SCREEN_WIDTH]);
+	void display(CHAR_INFO buffer[CST::SCREEN_HEIGHT][CST::SCREEN_WIDTH]);
 	void coloring();
 	virtual void move();
 	bool testExit();
