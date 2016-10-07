@@ -5,6 +5,7 @@ namespace VAR{
 		Sound*	MAIN_THEME[CST::SND::MAIN_THEME_t];
 		Sound*	MOB_DEATH[CST::SND::MOB_DEATH_t];
 		Sound*	MOB_HIT[CST::SND::MOB_HIT_t];
+		Sound*	WAVE_START[CST::SND::WAVE_START_t];
 		Sound*	WAVE_LOST[CST::SND::WAVE_LOST_t]; // defeat
 		Sound*	WAVE_WIN[CST::SND::WAVE_WIN_t]; // lvl_up
 		Sound*	PLAYER_HIT[CST::SND::PLAYER_HIT_t];
@@ -39,13 +40,13 @@ AsciiGame::AsciiGame() : m_isRunning(false)
 	//m_player = new 
 
 	/* Sound initialization */
-	m_regSounds.insert(pair_SSND("A7_200", new Sound(CST::HRM::A, 7, 200)));
-	m_regSounds.insert(pair_SSND("As7_300", new Sound(CST::HRM::As, 7, 300)));
-	m_regSounds.insert(pair_SSND("C5_500", new Sound(CST::HRM::C, 5, 500)));
+	m_regSounds.insert(pair_SSND("A7_100", new Sound(CST::HRM::A, 7, 100)));
+	m_regSounds.insert(pair_SSND("As7_150", new Sound(CST::HRM::As, 7, 150)));
+	m_regSounds.insert(pair_SSND("C5_250", new Sound(CST::HRM::C, 5, 250)));
 
-	VAR::SND::MOB_DEATH[0] = m_regSounds["A7_200"];
-	VAR::SND::MOB_DEATH[1] = m_regSounds["As7_300"];
-	VAR::SND::MOB_DEATH[2] = m_regSounds["C5_500"];
+	VAR::SND::MOB_DEATH[0] = m_regSounds["A7_100"];
+	VAR::SND::MOB_DEATH[1] = m_regSounds["As7_150"];
+	VAR::SND::MOB_DEATH[2] = m_regSounds["C5_250"];
 
 	std::thread(&SoundPlayer::play, std::ref(m_sndPlayer), VAR::SND::MOB_DEATH, CST::SND::MOB_DEATH_t).detach();
 	//m_sndPlayer.play(VAR::SND::MOB_DEATH, CST::SND::MOB_DEATH_t);

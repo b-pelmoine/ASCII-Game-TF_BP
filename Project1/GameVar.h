@@ -32,8 +32,9 @@ namespace CST{
 		const size_t	MAIN_THEME_t	{ 20 };
 		const size_t	MOB_DEATH_t		{ 3 };
 		const size_t	MOB_HIT_t		{ 2 };
+		const size_t	WAVE_START_t	{ 3 };
 		const size_t	WAVE_LOST_t		{ 5 };
-		const size_t	WAVE_WIN_t		{ 15 };
+		const size_t	WAVE_WIN_t		{ 5 };
 		const size_t	PLAYER_HIT_t	{ 2 };
 	}
 }
