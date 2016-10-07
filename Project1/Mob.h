@@ -17,6 +17,7 @@ public:
 	Mob(MobBreed breed, float posX, float posY);
 	~Mob();
 	bool isAlive();
+	void update();
 
 
 
