@@ -31,13 +31,13 @@ AsciiGame::AsciiGame() : m_isRunning(false), m_wlvl(0)
 	/* GameObject pools */
 	for (int i = 0; i < CST::MOBS_COUNT; ++i)
 	{
-		//m_mobs[i] = new Mob(MobBreed::Tiny,.0f,.0f);
+		m_mobs[i] = new GameObject;
 	}
 	for (int i = 0; i < CST::BULLETS_COUNT; ++i)
 	{
 		m_bullets[i] = new Bullet(Direction::None);
 	}
-	//m_player = new Player;
+	m_player = new Player;
 
 	/* Sound initialization */
 	m_regSounds.insert(pair_SSND("A7_100"	, new Sound(CST::HRM::A, 7, 100)));
@@ -149,7 +149,7 @@ bool AsciiGame::isPlayerAlive() const
 void AsciiGame::waveEnded(bool won)
 {
 	if (won){
-		std::thread(&SoundPlayer::play, std::ref(m_sndPlayer), VAR::SND::WAVE_WIN, CST::SND::WAVE_WIN_t).join();
+		//std::thread(&SoundPlayer::play, std::ref(m_sndPlayer), VAR::SND::WAVE_WIN, CST::SND::WAVE_WIN_t).join();
 		++m_wlvl;
 		nextWave();
 	}else{
@@ -163,8 +163,8 @@ void AsciiGame::waveEnded(bool won)
 */
 void AsciiGame::nextWave()
 {
-	m_wave = new Wave(this, m_mobs, static_cast<size_t>(CST::MOBS_COUNT), static_cast<float>(0.2f + (1 - m_wlvl*0.1f)));
-	std::thread(&SoundPlayer::play, std::ref(m_sndPlayer), VAR::SND::WAVE_START, CST::SND::WAVE_START_t).detach();
+	//m_wave = new Wave(this, m_mobs, static_cast<size_t>(CST::MOBS_COUNT), static_cast<float>(0.2f + (1 - m_wlvl*0.1f)));
+	//std::thread(&SoundPlayer::play, std::ref(m_sndPlayer), VAR::SND::WAVE_START, CST::SND::WAVE_START_t).detach();
 }
 
 //! gameOver
@@ -173,7 +173,7 @@ void AsciiGame::nextWave()
 */
 void AsciiGame::gameOver()
 {
-	std::thread(&SoundPlayer::play, std::ref(m_sndPlayer), VAR::SND::WAVE_LOST, CST::SND::WAVE_LOST_t).join();
+	//std::thread(&SoundPlayer::play, std::ref(m_sndPlayer), VAR::SND::WAVE_LOST, CST::SND::WAVE_LOST_t).join();
 	m_isRunning = false;
 }
 
@@ -190,7 +190,7 @@ void AsciiGame::render()
 
 	for (size_t i = 0; i < CST::MOBS_COUNT; i++)
 	{
-		m_mobs[i]->display(m_buffer);
+		//m_mobs[i]->display(m_buffer);
 	}
 	for (size_t i = 0; i < CST::BULLETS_COUNT; i++)
 	{
