@@ -27,7 +27,7 @@ void GameObject::move(float x, float y)
 }
 */
 
-void GameObject::display(CHAR_INFO buffer[CONSTANT::SCREEN_HEIGHT][CONSTANT::SCREEN_WIDTH])
+void GameObject::display(CHAR_INFO buffer[CST::SCREEN_HEIGHT][CST::SCREEN_WIDTH])
 {
 	for (int x = 0; x < m_sizeX; ++x ) {
 		for (int y = 0; y < m_sizeY; ++y) {
@@ -49,5 +49,5 @@ void GameObject::move()
 
 bool GameObject::testExit()
 {
-	return (m_posX >= 0 && m_posY >= 0 && m_posX < CONSTANT::SCREEN_WIDTH && m_posY < CONSTANT::SCREEN_HEIGHT);
+	return (m_posX >= 0 && m_posY >= 0 && m_posX < CST::SCREEN_WIDTH && m_posY < CST::SCREEN_HEIGHT);
 }
