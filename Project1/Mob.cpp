@@ -33,3 +33,12 @@ Mob::~Mob()
 {
 
 }
+
+bool Mob::isAlive()
+{
+	return (m_life > 0);
+}
+
+void Mob::update() {
+
+}

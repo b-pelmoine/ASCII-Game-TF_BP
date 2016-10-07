@@ -29,3 +29,9 @@ Player::Player()
 Player::~Player()
 {
 }
+
+bool Player::isPlayerAlive()
+{
+	return (m_life > 0);
+}
+
