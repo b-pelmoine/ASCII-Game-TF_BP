@@ -10,6 +10,7 @@
 #include "SoundPlayer.h"
 #include "Player.h"
 #include "Bullet.h"
+#include "Wave.h"
 
 /*
 ===============================================================================
@@ -26,12 +27,16 @@ public:
 	AsciiGame();
 	~AsciiGame();
 	void start( void );
+	bool isPlayerAlive(void) const;
+	void waveEnded(bool);
 
 private:
 	void clear( void );
 	void render( void );
 	void handleInputs( void );
 	void update( float );
+	void nextWave( void );
+	void gameOver( void );
 
 	/* inputs */
 	const int	INPUT_LEFT	 = 0x25;
@@ -45,6 +50,7 @@ private:
 
 	/* Game engine */
 	bool	m_isRunning;
+	short	m_wlvl; /* wave level */
 	NYTimer m_timer;
 	float		m_sec;
 
@@ -57,9 +63,10 @@ private:
 	CHAR_INFO			m_buffer[CST::SCREEN_HEIGHT][CST::SCREEN_WIDTH];
 
 	/* GameObjects */
-	GameObject*		m_mobs[CST::MOBS_COUNT];		/* pool containing mobs */
+	Mob*		m_mobs[CST::MOBS_COUNT];		/* pool containing mobs */
 	Bullet*		m_bullets[CST::BULLETS_COUNT];	/* pool containing particles */
 	GameObject*		m_player;
+	Wave*			m_wave; /* current wave */
 
 	/* SoundHandler */
 	SoundPlayer						m_sndPlayer;
