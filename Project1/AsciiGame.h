@@ -20,7 +20,7 @@ Game engine class in charge of the whole game logic
 */
 
 using pair_SSND = std::pair < std::string, Sound* > ;
-
+class Wave;
 class AsciiGame
 {
 public:
@@ -65,8 +65,8 @@ private:
 	/* GameObjects */
 	Mob*		m_mobs[CST::MOBS_COUNT];		/* pool containing mobs */
 	Bullet*		m_bullets[CST::BULLETS_COUNT];	/* pool containing particles */
-	GameObject*		m_player;
-	Wave*			m_wave; /* current wave */
+	Player*		m_player;
+	Wave*			m_wave;						/* current wave */
 
 	/* SoundHandler */
 	SoundPlayer						m_sndPlayer;
