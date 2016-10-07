@@ -62,9 +62,10 @@ private:
 	CHAR_INFO			m_buffer[CST::SCREEN_HEIGHT][CST::SCREEN_WIDTH];
 
 	/* GameObjects */
-	Mob*		m_mobs[CST::MOBS_COUNT];		/* pool containing mobs */
+	Mob*			m_mobs[CST::MOBS_COUNT];		/* pool containing mobs */
 	GameObject*		m_bullets[CST::BULLETS_COUNT];	/* pool containing particles */
 	GameObject*		m_player;
+	Wave*			m_wave; /* current wave */
 
 	/* SoundHandler */
 	SoundPlayer						m_sndPlayer;

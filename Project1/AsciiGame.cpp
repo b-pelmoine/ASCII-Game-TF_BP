@@ -40,11 +40,23 @@ AsciiGame::AsciiGame() : m_isRunning(false), m_wlvl(0)
 	//m_player = new Player;
 
 	/* Sound initialization */
-	m_regSounds.insert(pair_SSND("A7_100", new Sound(CST::HRM::A, 7, 100)));
-	m_regSounds.insert(pair_SSND("As7_150", new Sound(CST::HRM::As, 7, 150)));
-	m_regSounds.insert(pair_SSND("C5_250", new Sound(CST::HRM::C, 5, 250)));
-	m_regSounds.insert(pair_SSND("C5_150", new Sound(CST::HRM::C, 5, 150)));
-	m_regSounds.insert(pair_SSND("G5_250", new Sound(CST::HRM::G, 5, 250)));
+	m_regSounds.insert(pair_SSND("A7_100"	, new Sound(CST::HRM::A, 7, 100)));
+	m_regSounds.insert(pair_SSND("As7_150"	, new Sound(CST::HRM::As, 7, 150)));
+	m_regSounds.insert(pair_SSND("C5_250"	, new Sound(CST::HRM::C, 5, 250)));
+	m_regSounds.insert(pair_SSND("C5_150"	, new Sound(CST::HRM::C, 5, 150)));
+	m_regSounds.insert(pair_SSND("G5_150"	, new Sound(CST::HRM::G, 5, 150)));
+	m_regSounds.insert(pair_SSND("G5_250"	, new Sound(CST::HRM::G, 5, 250)));
+	m_regSounds.insert(pair_SSND("B9_500"	, new Sound(CST::HRM::B, 9, 500)));
+	m_regSounds.insert(pair_SSND("B7_500"	, new Sound(CST::HRM::B, 7, 500)));
+	m_regSounds.insert(pair_SSND("D3_800"	, new Sound(CST::HRM::D, 3, 800)));
+	m_regSounds.insert(pair_SSND("D5_500"	, new Sound(CST::HRM::D, 5, 500)));
+	m_regSounds.insert(pair_SSND("D7_200"	, new Sound(CST::HRM::D, 7, 200)));
+	m_regSounds.insert(pair_SSND("D9_200"	, new Sound(CST::HRM::D, 9, 200)));
+	m_regSounds.insert(pair_SSND("D9_1000"	, new Sound(CST::HRM::D, 9, 1000)));
+
+	VAR::SND::MAIN_THEME[0] = m_regSounds["B9_500"];
+	VAR::SND::MAIN_THEME[1] = m_regSounds["B7_500"];
+	/* ... */
 
 	VAR::SND::MOB_DEATH[0] = m_regSounds["A7_100"];
 	VAR::SND::MOB_DEATH[1] = m_regSounds["As7_150"];
@@ -53,7 +65,34 @@ AsciiGame::AsciiGame() : m_isRunning(false), m_wlvl(0)
 	VAR::SND::MOB_HIT[0] = m_regSounds["C5_150"];
 	VAR::SND::MOB_HIT[1] = m_regSounds["G5_250"];
 
-	std::thread(&SoundPlayer::play, std::ref(m_sndPlayer), VAR::SND::MOB_DEATH, CST::SND::MOB_DEATH_t).detach();
+	VAR::SND::WAVE_START[0] = m_regSounds["D7_200"];
+	VAR::SND::WAVE_START[1] = m_regSounds["C5_150"];
+	VAR::SND::WAVE_START[2] = m_regSounds["D9_200"];
+
+	VAR::SND::WAVE_LOST[0] = m_regSounds["D7_200"];
+	VAR::SND::WAVE_LOST[1] = m_regSounds["C5_150"];
+	VAR::SND::WAVE_LOST[2] = m_regSounds["D5_500"];
+	VAR::SND::WAVE_LOST[3] = m_regSounds["D5_500"];
+	VAR::SND::WAVE_LOST[4] = m_regSounds["D3_800"];
+
+	VAR::SND::WAVE_WIN[0] = m_regSounds["D7_200"];
+	VAR::SND::WAVE_WIN[1] = m_regSounds["C5_150"];
+	VAR::SND::WAVE_WIN[2] = m_regSounds["D7_200"];
+	VAR::SND::WAVE_WIN[3] = m_regSounds["D7_200"];
+	VAR::SND::WAVE_WIN[4] = m_regSounds["D9_1000"];
+
+	VAR::SND::PLAYER_HIT[0] = m_regSounds["G5_150"];
+	VAR::SND::PLAYER_HIT[1] = m_regSounds["C5_250"];
+	
+
+	//std::thread(&SoundPlayer::play, std::ref(m_sndPlayer), VAR::SND::MOB_DEATH, CST::SND::MOB_DEATH_t).detach();
+	//std::thread(&SoundPlayer::play, std::ref(m_sndPlayer), VAR::SND::MOB_HIT, CST::SND::MOB_HIT_t).detach();
+	//std::thread(&SoundPlayer::play, std::ref(m_sndPlayer), VAR::SND::WAVE_START, CST::SND::WAVE_START_t).detach();
+	//std::thread(&SoundPlayer::play, std::ref(m_sndPlayer), VAR::SND::WAVE_LOST, CST::SND::WAVE_LOST_t).detach();
+	//std::thread(&SoundPlayer::play, std::ref(m_sndPlayer), VAR::SND::WAVE_WIN, CST::SND::WAVE_WIN_t).detach();
+	//std::thread(&SoundPlayer::play, std::ref(m_sndPlayer), VAR::SND::PLAYER_HIT, CST::SND::PLAYER_HIT_t).detach();
+
+
 	//m_sndPlayer.play(VAR::SND::MOB_DEATH, CST::SND::MOB_DEATH_t);
 }
 
@@ -85,6 +124,7 @@ void AsciiGame::start()
 {
 	m_isRunning = true;
 	m_timer.start();
+	nextWave();
 	while (m_isRunning){
 		handleInputs();
 		update(m_timer.getElapsedSeconds());
@@ -108,6 +148,7 @@ bool AsciiGame::isPlayerAlive() const
 void AsciiGame::waveEnded(bool won)
 {
 	if (won){
+		std::thread(&SoundPlayer::play, std::ref(m_sndPlayer), VAR::SND::WAVE_WIN, CST::SND::WAVE_WIN_t).join();
 		++m_wlvl;
 		nextWave();
 	}else{
@@ -121,7 +162,8 @@ void AsciiGame::waveEnded(bool won)
 */
 void AsciiGame::nextWave()
 {
-	Wave wv(this, m_mobs, static_cast<size_t>(CST::MOBS_COUNT), static_cast<float>(0.2f + (1 - m_wlvl*0.1f)));
+	m_wave = new Wave(this, m_mobs, static_cast<size_t>(CST::MOBS_COUNT), static_cast<float>(0.2f + (1 - m_wlvl*0.1f)));
+	std::thread(&SoundPlayer::play, std::ref(m_sndPlayer), VAR::SND::WAVE_START, CST::SND::WAVE_START_t).detach();
 }
 
 //! gameOver
@@ -130,7 +172,7 @@ void AsciiGame::nextWave()
 */
 void AsciiGame::gameOver()
 {
-	clear();
+	std::thread(&SoundPlayer::play, std::ref(m_sndPlayer), VAR::SND::WAVE_LOST, CST::SND::WAVE_LOST_t).join();
 	m_isRunning = false;
 }
 
@@ -140,11 +182,12 @@ void AsciiGame::gameOver()
 */
 void AsciiGame::render()
 {
-	clear();
 	ReadConsoleOutput(m_hOutput, (CHAR_INFO *)m_buffer, m_dwBufferSize,
 		m_dwBufferCoord, &m_rcRegion);
 
-	for (size_t i = 0; i < CST::MOBS_COUNT; i++)
+	clear();
+
+	/*for (size_t i = 0; i < CST::MOBS_COUNT; i++)
 	{
 		m_mobs[i]->display(m_buffer);
 	}
@@ -152,7 +195,7 @@ void AsciiGame::render()
 	{
 		m_bullets[i]->display(m_buffer);
 	}
-	m_player->display(m_buffer);
+	m_player->display(m_buffer);*/
 
 	WriteConsoleOutput(m_hOutput, (CHAR_INFO *)m_buffer, m_dwBufferSize, m_dwBufferCoord, &m_rcRegion);
 }
