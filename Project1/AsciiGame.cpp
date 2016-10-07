@@ -35,7 +35,7 @@ AsciiGame::AsciiGame() : m_isRunning(false)
 	}
 	for (int i = 0; i < CST::BULLETS_COUNT; ++i)
 	{
-		m_bullets[i] = new GameObject;
+		m_bullets[i] = new Bullet(Direction::None);
 	}
 	m_player = new Player;
 
@@ -49,7 +49,7 @@ AsciiGame::AsciiGame() : m_isRunning(false)
 	VAR::SND::MOB_DEATH[2] = m_regSounds["C5_250"];
 
 	//std::thread(&SoundPlayer::play, std::ref(m_sndPlayer), VAR::SND::MOB_DEATH, CST::SND::MOB_DEATH_t).detach();
-	m_sndPlayer.play(VAR::SND::MOB_DEATH, CST::SND::MOB_DEATH_t);
+	//m_sndPlayer.play(VAR::SND::MOB_DEATH, CST::SND::MOB_DEATH_t);
 }
 
 //! Dtor
@@ -80,6 +80,7 @@ void AsciiGame::start()
 {
 	m_isRunning = true;
 	m_timer.start();
+	m_sec = m_timer.getElapsedSeconds();
 	while (m_isRunning){
 		handleInputs();
 		update(m_timer.getElapsedSeconds());
@@ -93,9 +94,10 @@ void AsciiGame::start()
 */
 void AsciiGame::render()
 {
-	clear();
+
 	ReadConsoleOutput(m_hOutput, (CHAR_INFO *)m_buffer, m_dwBufferSize,
 		m_dwBufferCoord, &m_rcRegion);
+	clear();
 
 	for (size_t i = 0; i < CST::MOBS_COUNT; i++)
 	{
@@ -103,7 +105,8 @@ void AsciiGame::render()
 	}
 	for (size_t i = 0; i < CST::BULLETS_COUNT; i++)
 	{
-		m_bullets[i]->display(m_buffer);
+		if(m_bullets[i]->testExit())
+			m_bullets[i]->display(m_buffer);
 	}
 	m_player->display(m_buffer);
 
@@ -143,5 +146,37 @@ void AsciiGame::handleInputs()
 * run through all game object and update there components (AI, position)
 */
 void AsciiGame::update(float timeElapsed){
+	if (m_sec + (1/60) < timeElapsed) {
+		if (m_leftIsPressed && !m_topIsPressed && !m_downIsPressed && !m_rightIsPressed) {
+			m_bullets[Bullet::placeInPool]->instantiate(West);
+		}
+		else if (m_leftIsPressed && m_topIsPressed && !m_downIsPressed && !m_rightIsPressed) {
+			m_bullets[Bullet::placeInPool]->instantiate(NorthWest);
+		}
+		else if (!m_leftIsPressed && m_topIsPressed && !m_downIsPressed && !m_rightIsPressed) {
+			m_bullets[Bullet::placeInPool]->instantiate(North);
+		}
+		else if (!m_leftIsPressed && m_topIsPressed && !m_downIsPressed && m_rightIsPressed) {
+			m_bullets[Bullet::placeInPool]->instantiate(NorthEast);
+		}
+		else if (!m_leftIsPressed && !m_topIsPressed && m_downIsPressed && !m_rightIsPressed) {
+			m_bullets[Bullet::placeInPool]->instantiate(South);
+		}
+		else if (!m_leftIsPressed && !m_topIsPressed && m_downIsPressed && m_rightIsPressed) {
+			m_bullets[Bullet::placeInPool]->instantiate(SouthEast);
+		}
+		else if (m_leftIsPressed && !m_topIsPressed && m_downIsPressed && !m_rightIsPressed) {
+			m_bullets[Bullet::placeInPool]->instantiate(SouthWest);
+		}
+		else if (!m_leftIsPressed && !m_topIsPressed && !m_downIsPressed && m_rightIsPressed) {
+			m_bullets[Bullet::placeInPool]->instantiate(East);
+		}
+
+
+		for (int i = 0; i < CST::BULLETS_COUNT; ++i) {
+			m_bullets[i]->move();
+		}
+		m_sec = timeElapsed;
+	}
 	
 }

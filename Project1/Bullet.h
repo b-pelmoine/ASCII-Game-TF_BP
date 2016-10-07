@@ -2,6 +2,7 @@
 #include "GameObject.h"
 
 enum Direction {
+	None,
 	North,
 	NorthWest,
 	West,
@@ -19,10 +20,10 @@ public:
 	~Bullet();
 	void spriteAndPosition();
 	void move();
+	void instantiate(Direction direction);
 
+	static int placeInPool;
 private:
 	Direction	m_direction;
+	void		increment();
 };
-
-
-

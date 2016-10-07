@@ -9,6 +9,7 @@
 #include "GameObject.h"
 #include "SoundPlayer.h"
 #include "Player.h"
+#include "Bullet.h"
 
 /*
 ===============================================================================
@@ -45,6 +46,7 @@ private:
 	/* Game engine */
 	bool	m_isRunning;
 	NYTimer m_timer;
+	float		m_sec;
 
 	/* Game Window */
 	HANDLE				m_hOutput;
@@ -56,7 +58,7 @@ private:
 
 	/* GameObjects */
 	GameObject*		m_mobs[CST::MOBS_COUNT];		/* pool containing mobs */
-	GameObject*		m_bullets[CST::BULLETS_COUNT];	/* pool containing particles */
+	Bullet*		m_bullets[CST::BULLETS_COUNT];	/* pool containing particles */
 	GameObject*		m_player;
 
 	/* SoundHandler */

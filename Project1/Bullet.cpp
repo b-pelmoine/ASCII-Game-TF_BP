@@ -2,6 +2,8 @@
 
 
 
+int Bullet::placeInPool = 0;
+
 Bullet::Bullet(Direction direction)
 {
 	m_direction = direction;
@@ -9,7 +11,7 @@ Bullet::Bullet(Direction direction)
 	m_sizeX = 1;
 	m_sizeY = 1;
 	m_life = 1;
-	m_speed = 0.5f;
+	m_speed = 0.005f;
 	m_color = 5;
 	spriteAndPosition();
 	coloring();
@@ -19,6 +21,7 @@ Bullet::Bullet(Direction direction)
 
 Bullet::~Bullet()
 {
+
 }
 
 void Bullet::spriteAndPosition() {
@@ -63,6 +66,11 @@ void Bullet::spriteAndPosition() {
 		m_posY = 15.0f;
 		m_ascii->Char.AsciiChar = '|';
 		break;
+	default:
+		m_posX = -1.0f;
+		m_posY = -1.0f;
+		m_ascii->Char.AsciiChar = ' ';
+		break;
 	}
 }
 
@@ -100,3 +108,15 @@ void Bullet::move()
 	}
 }
 
+void Bullet::instantiate(Direction direction)
+{
+	increment();
+	m_direction = direction;
+	spriteAndPosition();
+}
+
+void Bullet::increment() {
+	++placeInPool;
+	if (placeInPool > CST::BULLETS_COUNT)
+		placeInPool = 0;
+}
