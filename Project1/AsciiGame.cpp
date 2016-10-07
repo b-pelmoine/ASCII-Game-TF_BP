@@ -31,11 +31,11 @@ AsciiGame::AsciiGame() : m_isRunning(false), m_wlvl(0)
 	/* GameObject pools */
 	for (int i = 0; i < CST::MOBS_COUNT; ++i)
 	{
-		m_mobs[i] = new GameObject;
+		m_mobs[i] = new Mob(MobBreed::Tiny,.0f,.0f);
 	}
 	for (int i = 0; i < CST::BULLETS_COUNT; ++i)
 	{
-		m_bullets[i] = new GameObject;
+		//m_bullets[i] = new Bullet();
 	}
 	m_player = new Player;
 
@@ -43,13 +43,18 @@ AsciiGame::AsciiGame() : m_isRunning(false), m_wlvl(0)
 	m_regSounds.insert(pair_SSND("A7_100", new Sound(CST::HRM::A, 7, 100)));
 	m_regSounds.insert(pair_SSND("As7_150", new Sound(CST::HRM::As, 7, 150)));
 	m_regSounds.insert(pair_SSND("C5_250", new Sound(CST::HRM::C, 5, 250)));
+	m_regSounds.insert(pair_SSND("C5_150", new Sound(CST::HRM::C, 5, 150)));
+	m_regSounds.insert(pair_SSND("G5_250", new Sound(CST::HRM::G, 5, 250)));
 
 	VAR::SND::MOB_DEATH[0] = m_regSounds["A7_100"];
 	VAR::SND::MOB_DEATH[1] = m_regSounds["As7_150"];
 	VAR::SND::MOB_DEATH[2] = m_regSounds["C5_250"];
 
-	//std::thread(&SoundPlayer::play, std::ref(m_sndPlayer), VAR::SND::MOB_DEATH, CST::SND::MOB_DEATH_t).detach();
-	m_sndPlayer.play(VAR::SND::MOB_DEATH, CST::SND::MOB_DEATH_t);
+	VAR::SND::MOB_HIT[0] = m_regSounds["C5_150"];
+	VAR::SND::MOB_HIT[1] = m_regSounds["G5_250"];
+
+	std::thread(&SoundPlayer::play, std::ref(m_sndPlayer), VAR::SND::MOB_DEATH, CST::SND::MOB_DEATH_t).detach();
+	//m_sndPlayer.play(VAR::SND::MOB_DEATH, CST::SND::MOB_DEATH_t);
 }
 
 //! Dtor
@@ -93,7 +98,7 @@ void AsciiGame::start()
 */
 bool AsciiGame::isPlayerAlive() const
 {
-	return m_player->isAlive();
+	return true;//m_player->isAlive();
 }
 
 //! wave Ended
@@ -112,7 +117,12 @@ void AsciiGame::waveEnded(bool won)
 
 void AsciiGame::nextWave()
 {
-	Wave wv(this, *m_mobs, static_cast<size_t>(CST::MOBS_COUNT/2),0.2+(1-m_wlvl*0.1)) ;
+	Wave wv(this, m_mobs, static_cast<size_t>(CST::MOBS_COUNT), static_cast<float>(0.2f + (1 - m_wlvl*0.1f)));
+}
+void AsciiGame::gameOver()
+{
+	clear();
+	m_isRunning = false;
 }
 
 //! render the window

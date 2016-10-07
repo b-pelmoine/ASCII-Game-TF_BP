@@ -26,7 +26,7 @@ void Wave::update(float timeElapsed)
 	if (timeElapsed - m_lastSpawn < m_spawnRate){
 		if (m_spawnCount < m_wavelength) ++m_spawnCount;
 		m_lastSpawn = timeElapsed;
-		m_waveMobs[m_spawnCount]->pop();
+		//m_waveMobs[m_spawnCount]->pop();
 	}
 	for (size_t i = 0; i < m_spawnCount; ++i)
 	{

@@ -2,7 +2,7 @@
 
 #include "Mob.h"
 #include "AsciiGame.h"
-
+class AsciiGame;
 class Wave
 {
 public:
