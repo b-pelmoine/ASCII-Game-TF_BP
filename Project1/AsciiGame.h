@@ -16,6 +16,8 @@ Game engine class in charge of the whole game logic
 ===============================================================================
 */
 
+using pair_SSND = std::pair < std::string, Sound* > ;
+
 class AsciiGame
 {
 public:

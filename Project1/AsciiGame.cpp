@@ -39,15 +39,13 @@ AsciiGame::AsciiGame() : m_isRunning(false)
 	//m_player = new 
 
 	/* Sound initialization */
-	/*for (int i = 1; i < 20; i += 2)
-		m_regSounds.insert(std::pair<std::string, Sound*>("A"+std::to_string(i), new Sound(CST::HRM::A, 7, 200)));*/
-	m_regSounds.insert(std::pair<std::string, Sound*>("A3_200",new Sound(CST::HRM::A,10,200)));
-	m_regSounds.insert(std::pair<std::string, Sound*>("As3_200", new Sound(CST::HRM::As, 10, 200)));
-	m_regSounds.insert(std::pair<std::string, Sound*>("C3_200", new Sound(CST::HRM::C, 10, 200)));
+	m_regSounds.insert(pair_SSND("A7_200", new Sound(CST::HRM::A, 7, 200)));
+	m_regSounds.insert(pair_SSND("As7_300", new Sound(CST::HRM::As, 7, 300)));
+	m_regSounds.insert(pair_SSND("C5_500", new Sound(CST::HRM::C, 5, 500)));
 
-	VAR::SND::MOB_DEATH[0] = m_regSounds["A3_200"];
-	VAR::SND::MOB_DEATH[1] = m_regSounds["As3_200"];
-	VAR::SND::MOB_DEATH[2] = m_regSounds["C3_200"];
+	VAR::SND::MOB_DEATH[0] = m_regSounds["A7_200"];
+	VAR::SND::MOB_DEATH[1] = m_regSounds["As7_300"];
+	VAR::SND::MOB_DEATH[2] = m_regSounds["C5_500"];
 
 	std::thread(&SoundPlayer::play, std::ref(m_sndPlayer), VAR::SND::MOB_DEATH, CST::SND::MOB_DEATH_t).detach();
 	//m_sndPlayer.play(VAR::SND::MOB_DEATH, CST::SND::MOB_DEATH_t);
