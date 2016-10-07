@@ -33,3 +33,8 @@ Mob::~Mob()
 {
 
 }
+
+bool Mob::isAlive()
+{
+	return (m_life > 0);
+}
