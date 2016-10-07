@@ -8,6 +8,7 @@
 #include "NYTimer.h"
 #include "GameObject.h"
 #include "SoundPlayer.h"
+#include "Player.h"
 
 /*
 ===============================================================================

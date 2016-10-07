@@ -37,7 +37,7 @@ AsciiGame::AsciiGame() : m_isRunning(false)
 	{
 		m_bullets[i] = new GameObject;
 	}
-	//m_player = new 
+	m_player = new Player;
 
 	/* Sound initialization */
 	m_regSounds.insert(pair_SSND("A7_100", new Sound(CST::HRM::A, 7, 100)));
@@ -48,8 +48,8 @@ AsciiGame::AsciiGame() : m_isRunning(false)
 	VAR::SND::MOB_DEATH[1] = m_regSounds["As7_150"];
 	VAR::SND::MOB_DEATH[2] = m_regSounds["C5_250"];
 
-	std::thread(&SoundPlayer::play, std::ref(m_sndPlayer), VAR::SND::MOB_DEATH, CST::SND::MOB_DEATH_t).detach();
-	//m_sndPlayer.play(VAR::SND::MOB_DEATH, CST::SND::MOB_DEATH_t);
+	//std::thread(&SoundPlayer::play, std::ref(m_sndPlayer), VAR::SND::MOB_DEATH, CST::SND::MOB_DEATH_t).detach();
+	m_sndPlayer.play(VAR::SND::MOB_DEATH, CST::SND::MOB_DEATH_t);
 }
 
 //! Dtor
@@ -105,6 +105,7 @@ void AsciiGame::render()
 	{
 		m_bullets[i]->display(m_buffer);
 	}
+	m_player->display(m_buffer);
 
 	WriteConsoleOutput(m_hOutput, (CHAR_INFO *)m_buffer, m_dwBufferSize, m_dwBufferCoord, &m_rcRegion);
 }
