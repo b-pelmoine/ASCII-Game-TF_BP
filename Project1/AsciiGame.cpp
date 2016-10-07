@@ -17,7 +17,7 @@ namespace VAR{
  * init the game window properties
  * init gameObject pools
  */
-AsciiGame::AsciiGame() : m_isRunning(false)
+AsciiGame::AsciiGame() : m_isRunning(false), m_wlvl(0)
 {
 	/* game window */
 	m_hOutput = (HANDLE)GetStdHandle(STD_OUTPUT_HANDLE);
@@ -85,6 +85,34 @@ void AsciiGame::start()
 		update(m_timer.getElapsedSeconds());
 		render();
 	}
+}
+
+//! isPlayerAlive
+/*
+* return current state of the player (boolean), true if alive
+*/
+bool AsciiGame::isPlayerAlive() const
+{
+	return m_player->isAlive();
+}
+
+//! wave Ended
+/*
+* Handle the end of a wave
+*/
+void AsciiGame::waveEnded(bool won)
+{
+	if (won){
+		++m_wlvl;
+		nextWave();
+	}else{
+		gameOver();
+	}
+}
+
+void AsciiGame::nextWave()
+{
+	Wave wv(this, *m_mobs, static_cast<size_t>(CST::MOBS_COUNT/2),0.2+(1-m_wlvl*0.1)) ;
 }
 
 //! render the window

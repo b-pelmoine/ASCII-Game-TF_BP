@@ -9,6 +9,7 @@
 #include "GameObject.h"
 #include "SoundPlayer.h"
 #include "Player.h"
+#include "Wave.h"
 
 /*
 ===============================================================================
@@ -25,12 +26,16 @@ public:
 	AsciiGame();
 	~AsciiGame();
 	void start( void );
+	bool isPlayerAlive(void) const;
+	void waveEnded(bool);
 
 private:
 	void clear( void );
 	void render( void );
 	void handleInputs( void );
 	void update( float );
+	void nextWave( void );
+	void gameOver( void );
 
 	/* inputs */
 	const int	INPUT_LEFT	 = 0x25;
@@ -44,6 +49,7 @@ private:
 
 	/* Game engine */
 	bool	m_isRunning;
+	short	m_wlvl; /* wave level */
 	NYTimer m_timer;
 
 	/* Game Window */
