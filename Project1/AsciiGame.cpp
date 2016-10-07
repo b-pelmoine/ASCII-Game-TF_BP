@@ -31,13 +31,13 @@ AsciiGame::AsciiGame() : m_isRunning(false), m_wlvl(0)
 	/* GameObject pools */
 	for (int i = 0; i < CST::MOBS_COUNT; ++i)
 	{
-		m_mobs[i] = new Mob(MobBreed::Tiny,.0f,.0f);
+		//m_mobs[i] = new Mob(MobBreed::Tiny,.0f,.0f);
 	}
 	for (int i = 0; i < CST::BULLETS_COUNT; ++i)
 	{
 		//m_bullets[i] = new Bullet();
 	}
-	m_player = new Player;
+	//m_player = new Player;
 
 	/* Sound initialization */
 	m_regSounds.insert(pair_SSND("A7_100", new Sound(CST::HRM::A, 7, 100)));
@@ -115,10 +115,19 @@ void AsciiGame::waveEnded(bool won)
 	}
 }
 
+//! nextWave
+/*
+* start a new wave
+*/
 void AsciiGame::nextWave()
 {
 	Wave wv(this, m_mobs, static_cast<size_t>(CST::MOBS_COUNT), static_cast<float>(0.2f + (1 - m_wlvl*0.1f)));
 }
+
+//! gameOver
+/*
+* Handle the gale over
+*/
 void AsciiGame::gameOver()
 {
 	clear();
